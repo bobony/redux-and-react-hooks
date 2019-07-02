@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import Search from'./Search'
 import { connect } from 'react-redux'
 import * as actions from './Users.actions'
 
@@ -7,9 +8,14 @@ function Users(props) {
         props.getUsers()
     }, []);
     
+    const onSearch= (val) => {
+        const location =`location:${val}`
+        props.getUsers(location)
+    }
     const { users } = props
     return (
         <div>
+            <Search onSearchQuery={onSearch}/>
             {users.length !== 0 ? users.map(function (user) {
                 return (
                     <div key={user.id} style={{ padding: 20 }}>
